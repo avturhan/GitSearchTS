@@ -1,0 +1,55 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  border-top: 1px solid #ccc;
+  position: sticky; /* Make the pagination bar sticky */
+  bottom: 0; /* Stick it to the bottom of the container */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.rows-per-page {
+  display: flex;
+  align-items: center;
+}
+
+.rows-per-page label {
+  margin-right: 10px;
+}
+
+.rows-per-page select {
+  padding: 5px;
+}
+
+.page-info {
+  flex: 1;
+  text-align: center;
+}
+
+.page-controls button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.page-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Медиазапросы для адаптивности */
+@media (min-width: 768px) {
+  .pagination-container {
+    flex-wrap: nowrap; /* Убираем wrap для планшетов и выше */
+  }
+
+  .rows-per-page {
+    margin-bottom: 0; /* Убираем отступ для планшетов и выше */
+  }
+}

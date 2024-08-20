@@ -1,0 +1,66 @@
+.repo-details {
+  background-color: rgba(242, 242, 242, 1);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 700px; /* Установите ширину панели по умолчанию */
+  min-width: 300px; /* Минимальная ширина панели */
+  max-width: 100%; /* Максимальная ширина панели */
+  max-height: 100%; /* Максимальная высота панели */
+  overflow-y: auto; /* Включение вертикальной прокрутки */
+}
+
+.repo-details-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+}
+
+.repo-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.repo-info {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.repo-info strong {
+  font-weight: bold;
+}
+
+.repo-info a {
+  color: #2196f3;
+  text-decoration: none;
+}
+
+.repo-info a:hover {
+  text-decoration: underline;
+}
+
+.repo-tags {
+  margin-top: 20px;
+}
+
+.repo-tags strong {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.repo-tags ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.repo-tags li {
+  background-color: #e8e8e8;
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin: 4px 0;
+}

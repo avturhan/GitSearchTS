@@ -1,0 +1,67 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.content-area {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.table-container {
+  flex: 1;
+  overflow: auto;
+  width: 99%;
+  height: 100%;
+}
+
+.RepoDetails {
+  width: 500px; /* Увеличиваем ширину панели с деталями */
+  flex-shrink: 0;
+  overflow: auto;
+}
+
+.welcome-message {
+  color: rgba(79, 79, 79, 1);
+  font-size: 46px;
+  margin-top: 20px;
+  flex-grow: 1; /* Заставляем welcome-message занимать всю оставшуюся ширину */
+  display: flex;
+  justify-content: center; /* Центрируем по горизонтали */
+  align-items: center; /* Центрируем по вертикали */
+}
+.content-area {
+  display: flex;
+  align-items: stretch; /* Stretch children to fill container */
+}
+
+.table-section {
+  flex: 1;
+}
+
+.resizable-panel {
+  background: rgba(242, 242, 242, 1);
+  border-left: 1px solid #ccc;
+  overflow-y: auto;
+  height: 100vh; /* Adjust height as needed */
+  position: relative;
+}
+
+.resizer {
+  width: 5px;
+  background: #ccc;
+  cursor: ew-resize;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}

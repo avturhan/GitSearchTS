@@ -1,0 +1,72 @@
+// PagesModules.scss
+
+.table-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column; /* Располагаем элементы по вертикали */
+  height: 94%; /* Высота контейнера на весь экран (или задайте другую высоту) */
+}
+
+.table-search {
+  display: flex;
+  margin-bottom: 20px; /* Добавляем отступ снизу для лучшего визуального разделения */
+}
+
+.table-search input {
+  width: 350px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.table-search button {
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #2196f3;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.table-search button:hover {
+  background-color: #1976d2;
+}
+
+.results-header {
+  font-family: Roboto;
+  font-size: 48px;
+  font-weight: 500;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.repository-table-container {
+  overflow-y: auto; /* Добавляем вертикальный скролл */
+  height: calc(
+    100% - 150px
+  ); /* Вычисляем высоту для таблицы, чтобы оставалось место для других элементов */
+}
+
+.repository-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0; /* Убираем отступы, чтобы таблица занимала всю доступную ширину */
+}
+
+th,
+td {
+  padding: 16px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+th {
+  cursor: pointer;
+}
+
+tr:hover {
+  background: rgba(33, 150, 243, 0.04);
+}
