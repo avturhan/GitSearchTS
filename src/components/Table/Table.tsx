@@ -1,42 +1,57 @@
-// Импортируем необходимые библиотеки React
-import React, { useMemo } from "react";
-// Импортируем тип Repo из унифицированных типов
+import React, { useState, useEffect, useMemo } from "react";
 import { Repo } from "../../Types";
-// Импортируем стили
 import "./Table.scss";
 
-// Определяем типы пропсов для компонента Table
 interface TableProps {
   data: Repo[];
-  searchQuery: string;
   onRepoSelect: (repo: Repo) => void;
   currentPage: number;
   rowsPerPage: number;
 }
 
-// Определяем тип для конфигурации сортировки
 interface SortConfig {
   key: keyof Repo;
   direction: "ascending" | "descending";
 }
 
-// Компонент Table
 const Table: React.FC<TableProps> = ({
   data,
   onRepoSelect,
-  searchQuery,
   currentPage,
   rowsPerPage,
 }) => {
-  const [sortConfig, setSortConfig] = React.useState<SortConfig>({
+  const [searchQuery, setSearchQuery] = useState<string>(""); // Состояние для строки поиска
+  const [sortConfig, setSortConfig] = useState<SortConfig>({
     key: "name",
     direction: "ascending",
   });
-  const [isReversed, setIsReversed] = React.useState<boolean>(false);
+  const [isReversed, setIsReversed] = useState<boolean>(false);
+  const [filteredData, setFilteredData] = useState<Repo[]>(data); // Для хранения фильтрованных данных
 
-  // Сортировка данных
+  // Эффект для фильтрации данных при изменении searchQuery или data
+  useEffect(() => {
+    const filtered = data.filter((repo) => {
+      const searchInForks = repo.forks.toString().includes(searchQuery);
+      const searchInStars = repo.stars.toString().includes(searchQuery);
+      return (
+        repo.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (repo.language &&
+          repo.language.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        searchInForks ||
+        searchInStars
+      );
+    });
+    setFilteredData(filtered); // Обновляем отфильтрованные данные
+  }, [searchQuery, data]);
+
+  // Обработчик ввода в поле поиска
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Мемоизация отсортированных данных
   const sortedData = useMemo(() => {
-    let sortableData = [...data];
+    let sortableData = [...filteredData];
     if (sortConfig) {
       sortableData.sort((a, b) => {
         const aValue = a[sortConfig.key];
@@ -56,7 +71,7 @@ const Table: React.FC<TableProps> = ({
       });
     }
     return sortableData;
-  }, [data, sortConfig]);
+  }, [filteredData, sortConfig]);
 
   // Обработчик изменения сортировки
   const handleSort = (key: keyof Repo) => {
@@ -67,22 +82,42 @@ const Table: React.FC<TableProps> = ({
     setSortConfig({ key, direction });
   };
 
-  // Определение индексов для текущей страницы
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const endIndex = startIndex + rowsPerPage;
-  const pageData = sortedData.slice(startIndex, endIndex);
-  const displayedData = isReversed ? pageData.reverse() : pageData;
-
-  // Обработчик переворачивания данных
+  // Обработчик реверса порядка строк
   const handleReverse = () => {
     setIsReversed(!isReversed);
   };
 
+  // Определение индексов для текущей страницы
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+
+  // Срез данных для текущей страницы
+  const pageData = sortedData.slice(startIndex, endIndex);
+
+  // Инвертируем порядок строк, если включен режим реверса
+  const displayedData = isReversed ? pageData.reverse() : pageData;
+
   return (
     <div className="table-container">
+      <div className="table-search">
+        {/* Поле ввода для поиска */}
+        <input
+          type="text"
+          placeholder="Поиск в таблице..."
+          value={searchQuery}
+          onChange={handleSearchChange} // Обновление состояния searchQuery при изменении
+        />
+      </div>
+
+      {/* Заголовок результатов поиска, если filteredData не пуст */}
+      {filteredData.length > 0 && (
+        <h2 className="results-header">Результаты поиска</h2>
+      )}
+
       <table className="repository-table">
         <thead>
           <tr>
+            {/* Заголовки таблицы с обработчиками сортировки и реверса */}
             <th onClick={handleReverse}>№</th>
             <th onClick={() => handleSort("name")}>Название</th>
             <th onClick={() => handleSort("language")}>Язык</th>
@@ -92,13 +127,20 @@ const Table: React.FC<TableProps> = ({
           </tr>
         </thead>
         <tbody>
+          {/* Строки таблицы с данными репозиториев */}
           {displayedData.map((repo, index) => (
             <tr key={repo.id} onClick={() => onRepoSelect(repo)}>
+              {/* Номер строки */}
               <td>{isReversed ? endIndex - index : startIndex + index + 1}</td>
+              {/* Имя репозитория */}
               <td>{repo.name}</td>
+              {/* Язык программирования репозитория */}
               <td>{repo.language || "Не указан"}</td>
+              {/* Число форков */}
               <td>{repo.forks}</td>
+              {/* Число звезд */}
               <td>{repo.stars}</td>
+              {/* Дата последнего обновления */}
               <td>{repo.updated}</td>
             </tr>
           ))}

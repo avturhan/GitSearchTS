@@ -42,7 +42,7 @@ function App() {
   // Определение состояния для текущей страницы
   const [currentPage, setCurrentPage] = useState<number>(1);
   // Определение состояния для количества строк на странице
-  const [rowsPerPage, setRowsPerPage] = useState<number | "all">(30); // По умолчанию 30
+  const [rowsPerPage, setRowsPerPage] = useState<number | "all">(10); // По умолчанию 30
   // Определение состояния для ширины панели
   const [panelWidth, setPanelWidth] = useState<number>(700); // Начальная ширина панели
 
@@ -130,7 +130,6 @@ function App() {
               <Table
                 data={repositories}
                 onRepoSelect={handleRepoSelect}
-                searchQuery={searchQuery}
                 currentPage={currentPage}
                 rowsPerPage={rowsPerPage as number} // Приведение типа для Table
               />

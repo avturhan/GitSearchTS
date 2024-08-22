@@ -3,7 +3,7 @@ import { PaginationProps } from "../../Types";
 import "./Pagination.scss";
 
 const Pagination: React.FC<PaginationProps> = ({
-  rowsPerPage,
+  rowsPerPage = 10,  // Установим 10 элементов по умолчанию
   totalRows,
   currentPage,
   onPageChange,
@@ -26,11 +26,10 @@ const Pagination: React.FC<PaginationProps> = ({
           value={rowsPerPage}
           onChange={(e) => onRowsPerPageChange(Number(e.target.value) || "all")}
         >
-          <option value={10}>10</option>
+          <option value={10}>10</option>  {/* По умолчанию выбрано значение 10 */}
           <option value={20}>20</option>
           <option value={50}>50</option>
           <option value={100}>100</option>
-          <option value="all">All</option>
         </select>
       </div>
       <div className="page-info">
