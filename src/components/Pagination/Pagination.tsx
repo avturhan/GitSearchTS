@@ -1,45 +1,42 @@
-// Импортируем интерфейсы
+import React from "react";
 import { PaginationProps } from "../../Types";
 import "./Pagination.scss";
 
 const Pagination: React.FC<PaginationProps> = ({
-  rowsPerPage = 10,  // Установим 10 элементов по умолчанию
+  rowsPerPage,
   totalRows,
   currentPage,
-  onPageChange,
   onRowsPerPageChange,
 }) => {
-  const totalPages =
-    rowsPerPage === "all" ? 1 : Math.ceil(totalRows / rowsPerPage);
-
-  const handlePageChange = (newPage: number) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      onPageChange(newPage);
-    }
+  // Обработка изменения количества строк на странице
+  const handleRowsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    onRowsPerPageChange(value === "all" ? "all" : Number(value));
   };
+
+  // Форматирование информации о текущей странице
+  const pageInfo =
+    rowsPerPage === "all"
+      ? `1-${totalRows} of ${totalRows}`
+      : `${rowsPerPage * (currentPage - 1) + 1}-${Math.min(rowsPerPage * currentPage, totalRows)} of ${totalRows}`;
 
   return (
     <div className="pagination-container">
       <div className="rows-per-page">
-        <label>Rows per page: </label>
+        <label htmlFor="rows-per-page-select">Rows per page:</label>
         <select
+          id="rows-per-page-select"
           value={rowsPerPage}
-          onChange={(e) => onRowsPerPageChange(Number(e.target.value) || "all")}
+          onChange={handleRowsPerPageChange}
         >
-          <option value={10}>10</option>  {/* По умолчанию выбрано значение 10 */}
-          <option value={20}>20</option>
-          <option value={50}>50</option>
-          <option value={100}>100</option>
+          {[10, 20, 50, 100, "all"].map((value) => (
+            <option key={value} value={value}>
+              {value === "all" ? "All" : value}
+            </option>
+          ))}
         </select>
       </div>
-      <div className="page-info">
-        {rowsPerPage === "all"
-          ? `1-${totalRows} of ${totalRows}`
-          : `${rowsPerPage * (currentPage - 1) + 1}-${Math.min(
-              rowsPerPage * currentPage,
-              totalRows
-            )} of ${totalRows}`}
-      </div>
+      <div className="page-info">{pageInfo}</div>
     </div>
   );
 };

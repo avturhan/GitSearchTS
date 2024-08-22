@@ -1,57 +1,63 @@
-.HeaderSearch {
+/* Основной контейнер заголовка */
+.header {
   position: relative;
   width: 100%;
   height: 80px;
   background: #00838f;
   display: flex;
   align-items: center;
-  padding: 0 10px; /* Добавим небольшой внутренний отступ */
+  padding: 0 10px; /* Внутренний отступ для всего контейнера */
   box-sizing: border-box; /* Чтобы padding не увеличивал общую ширину */
 }
 
-.HeaderSearchContent {
+/* Контейнер для содержимого заголовка */
+.header-content {
   display: flex;
   align-items: center;
   width: 100%; /* Занимает всю доступную ширину контейнера */
-  max-width: 1200px; /* Максимальная ширина контента, чтобы не растягивался на больших экранах */
+  max-width: 1200px; /* Максимальная ширина контента */
   margin-left: 20px;
+  margin-right: auto; /* Автоматическое выравнивание по центру */
 }
 
-.HeaderInput {
+/* Поле ввода */
+.header-input {
   flex: 1; /* Позволяет инпуту занимать всё доступное пространство */
   background: #f2f2f2;
-  border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px; /* Скругленные углы с левой стороны */
   border: none; /* Убираем границы */
   outline: none; /* Убираем обводку */
-  padding-left: 15px;
-  font-style: italic;
-  height: 42px;
+  padding-left: 15px; /* Внутренний отступ слева */
+  font-style: italic; /* Курсивный текст */
+  height: 42px; /* Высота поля ввода */
   box-sizing: border-box; /* Чтобы padding не увеличивал общую ширину */
 }
 
-.HeaderButton {
+/* Кнопка поиска */
+.header-button {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 8px 22px;
   height: 44px;
-  background: #2196f3;
-  box-shadow:
+  background: #2196f3; /* Фоновый цвет кнопки */
+  box-shadow: 
     0px 1px 5px rgba(0, 0, 0, 0.12),
     0px 2px 2px rgba(0, 0, 0, 0.14),
-    0px 3px 1px -2px rgba(0, 0, 0, 0.2);
-  border-radius: 0 4px 4px 0;
+    0px 3px 1px -2px rgba(0, 0, 0, 0.2); /* Тени для кнопки */
+  border-radius: 0 4px 4px 0; /* Скругленные углы с правой стороны */
+  border: none; /* Убираем границы */
+  cursor: pointer; /* Курсор в виде руки при наведении */
+  margin-left: 10px; /* Отступ слева от поля ввода */
   outline: none; /* Убираем обводку */
-  cursor: pointer;
-  margin-left: 10px; /* Уменьшил отступ для более компактного вида */
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.HeaderButton:hover {
-  background-color: #1976d2;
 }
 
-.ButtonSpan {
-  color: rgba(255, 255, 255, 1);
+/* Стили кнопки при наведении */
+.header-button:hover {
+  background-color: #1976d2; /* Цвет кнопки при наведении */
+}
+
+/* Стили текста внутри кнопки */
+.button-text {
+  color: #fff; /* Цвет текста на кнопке */
 }

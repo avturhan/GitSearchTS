@@ -11,35 +11,26 @@ const RepoDetails: React.FC<RepoDetailsProps> = ({ repo }) => {
     );
   }
 
+  // Функция для рендеринга информации о репозитории
+  const renderRepoInfo = (label: string, value: string | undefined) => (
+    <p className="repo-info">
+      <strong>{label}:</strong> {value || "Не указана"}
+    </p>
+  );
+
   const tags = repo.tags || [];
 
   return (
     <div className="repo-details">
       <h2 className="repo-name">{repo.name}</h2>
-      <p className="repo-info">
-        <strong>Язык:</strong> {repo.language}
-      </p>
-      <p className="repo-info">
-        <strong>Число форков:</strong> {repo.forks}
-      </p>
-      <p className="repo-info">
-        <strong>Число звезд:</strong> {repo.stars}
-      </p>
-      <p className="repo-info">
-        <strong>Дата обновления:</strong> {repo.updated}
-      </p>
-      <p className="repo-info">
-        <strong>Дата создания:</strong> {repo.created_at || "Не указана"}
-      </p>
-      <p className="repo-info">
-        <strong>Количество коммитов:</strong> {repo.commits || "Не указано"}
-      </p>
-      <p className="repo-info">
-        <strong>Владелец:</strong> {repo.owner?.login || "Не указан"}
-      </p>
-      <p className="repo-info">
-        <strong>Статус лицензии:</strong> {repo.license?.name || "Не указана"}
-      </p>
+      {renderRepoInfo("Язык", repo.language)}
+      {renderRepoInfo("Число форков", repo.forks?.toString())}
+      {renderRepoInfo("Число звезд", repo.stars?.toString())}
+      {renderRepoInfo("Дата обновления", repo.updated)}
+      {renderRepoInfo("Дата создания", repo.created_at)}
+      {renderRepoInfo("Количество коммитов", repo.commits?.toString())}
+      {renderRepoInfo("Владелец", repo.owner?.login)}
+      {renderRepoInfo("Статус лицензии", repo.license?.name)}
       <p className="repo-info">
         <strong>Описание:</strong> {repo.description || "Нет описания"}
       </p>
