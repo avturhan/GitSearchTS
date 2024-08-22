@@ -10,15 +10,18 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   // Обработка изменения количества строк на странице
   const handleRowsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    onRowsPerPageChange(value === "all" ? "all" : Number(value));
+    const value = Number(e.target.value);
+    onRowsPerPageChange(value);
   };
 
+  // Приведение rowsPerPage к числу с значением по умолчанию
+  const rowsPerPageNumber = typeof rowsPerPage === "number" ? rowsPerPage : 10;
+
   // Форматирование информации о текущей странице
-  const pageInfo =
-    rowsPerPage === "all"
-      ? `1-${totalRows} of ${totalRows}`
-      : `${rowsPerPage * (currentPage - 1) + 1}-${Math.min(rowsPerPage * currentPage, totalRows)} of ${totalRows}`;
+  const pageInfo = `${rowsPerPageNumber * (currentPage - 1) + 1}-${Math.min(
+    rowsPerPageNumber * currentPage,
+    totalRows
+  )} of ${totalRows}`;
 
   return (
     <div className="pagination-container">
@@ -26,12 +29,12 @@ const Pagination: React.FC<PaginationProps> = ({
         <label htmlFor="rows-per-page-select">Rows per page:</label>
         <select
           id="rows-per-page-select"
-          value={rowsPerPage}
+          value={rowsPerPageNumber}
           onChange={handleRowsPerPageChange}
         >
-          {[10, 20, 50, 100, "all"].map((value) => (
+          {[10, 20, 50, 100].map((value) => (
             <option key={value} value={value}>
-              {value === "all" ? "All" : value}
+              {value}
             </option>
           ))}
         </select>
