@@ -1,45 +1,100 @@
 import React from "react";
-import { PaginationProps } from "../../Types";
-import "./Pagination.scss";
+import { useDispatch } from "react-redux";
+import { setCurrentPage, setRowsPerPage } from "../../slices/searchParamsSlice";
+import {
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  SelectChangeEvent,
+} from "@mui/material";
+import "./Pagination.scss"; // Сохраняем существующие стили
 
+/**
+ * Свойства компонента Pagination.
+ */
+interface PaginationProps {
+  /**
+   * Количество строк на одной странице или "all" для отображения всех строк.
+   */
+  rowsPerPage: number | "all";
+
+  /**
+   * Общее количество строк данных.
+   */
+  totalRows: number;
+
+  /**
+   * Текущая страница.
+   */
+  currentPage: number;
+
+  /**
+   * Функция для изменения текущей страницы.
+   * @param newPage - Номер новой страницы
+   */
+  onPageChange: (newPage: number) => void;
+
+  /**
+   * Функция для изменения количества строк на странице.
+   * @param newRowsPerPage - Новое количество строк на странице или "all"
+   */
+  onRowsPerPageChange: (newRowsPerPage: number | "all") => void;
+}
+
+/**
+ * Компонент Pagination для управления пагинацией.
+ * @param props - Свойства компонента
+ * @returns JSX элемент
+ */
 const Pagination: React.FC<PaginationProps> = ({
   rowsPerPage,
   totalRows,
   currentPage,
+  onPageChange,
   onRowsPerPageChange,
 }) => {
-  // Обработка изменения количества строк на странице
-  const handleRowsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = Number(e.target.value);
+  const dispatch = useDispatch();
+  
+  // Вычисление общего количества страниц
+  const totalPages = Math.ceil(
+    totalRows / (rowsPerPage === "all" ? totalRows : rowsPerPage)
+  );
+
+  /**
+   * Обработчик изменения количества строк на странице.
+   * @param event - Событие изменения значения селекта
+   */
+  const handleRowsPerPageChange = (
+    event: SelectChangeEvent<number | "all">
+  ) => {
+    const value = event.target.value as number | "all";
+    dispatch(setRowsPerPage(value));
+    dispatch(setCurrentPage(1));
     onRowsPerPageChange(value);
   };
-
-  // Приведение rowsPerPage к числу с значением по умолчанию
-  const rowsPerPageNumber = typeof rowsPerPage === "number" ? rowsPerPage : 10;
-
-  // Форматирование информации о текущей странице
-  const pageInfo = `${rowsPerPageNumber * (currentPage - 1) + 1}-${Math.min(
-    rowsPerPageNumber * currentPage,
-    totalRows
-  )} of ${totalRows}`;
 
   return (
     <div className="pagination-container">
       <div className="rows-per-page">
-        <label htmlFor="rows-per-page-select">Rows per page:</label>
-        <select
-          id="rows-per-page-select"
-          value={rowsPerPageNumber}
-          onChange={handleRowsPerPageChange}
-        >
-          {[10, 20, 50, 100].map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
+        <FormControl fullWidth>
+          <Select
+            labelId="rows-per-page-select-label"
+            id="rows-per-page-select"
+            value={rowsPerPage}
+            onChange={handleRowsPerPageChange}
+            className="rows-per-page-select"
+          >
+            <MenuItem value={10}>10</MenuItem>
+            <MenuItem value={30}>30</MenuItem>
+            <MenuItem value={50}>50</MenuItem>
+            <MenuItem value={75}>75</MenuItem>
+            <MenuItem value={100}>100</MenuItem>
+            <MenuItem value="all"></MenuItem>
+          </Select>
+        </FormControl>
       </div>
-      <div className="page-info">{pageInfo}</div>
     </div>
   );
 };

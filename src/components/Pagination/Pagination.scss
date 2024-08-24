@@ -5,8 +5,8 @@
   padding: 10px 20px;
   background-color: #f1f1f1;
   border-top: 1px solid #ccc;
-  position: sticky; /* Make the pagination bar sticky */
-  bottom: 0; /* Stick it to the bottom of the container */
+  position: sticky; /* Сделать панель пагинации фиксированной */
+  bottom: 0; /* Прикрепить к низу контейнера */
   width: 100%;
   box-sizing: border-box;
 }
@@ -16,11 +16,15 @@
   align-items: center;
 }
 
-.rows-per-page label {
+.rows-per-page .MuiFormControl-root {
+  min-width: 120px; /* Ширина для выпадающего списка */
+}
+
+.rows-per-page .MuiInputLabel-root {
   margin-right: 10px;
 }
 
-.rows-per-page select {
+.rows-per-page .MuiSelect-root {
   padding: 5px;
 }
 
@@ -29,7 +33,7 @@
   text-align: center;
 }
 
-.page-controls button {
+.page-controls .pagination-button {
   padding: 5px 10px;
   margin: 0 5px;
   background-color: #007bff;
@@ -38,7 +42,7 @@
   cursor: pointer;
 }
 
-.page-controls button:disabled {
+.page-controls .pagination-button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }

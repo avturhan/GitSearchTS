@@ -31,6 +31,7 @@
   font-style: italic; /* Курсивный текст */
   height: 42px; /* Высота поля ввода */
   box-sizing: border-box; /* Чтобы padding не увеличивал общую ширину */
+  margin-right: 20px; /* Отступ справа от поля ввода */
 }
 
 /* Кнопка поиска */
@@ -41,23 +42,19 @@
   padding: 8px 22px;
   height: 44px;
   background: #2196f3; /* Фоновый цвет кнопки */
-  box-shadow: 
+  box-shadow:
     0px 1px 5px rgba(0, 0, 0, 0.12),
     0px 2px 2px rgba(0, 0, 0, 0.14),
     0px 3px 1px -2px rgba(0, 0, 0, 0.2); /* Тени для кнопки */
   border-radius: 0 4px 4px 0; /* Скругленные углы с правой стороны */
   border: none; /* Убираем границы */
   cursor: pointer; /* Курсор в виде руки при наведении */
-  margin-left: 10px; /* Отступ слева от поля ввода */
   outline: none; /* Убираем обводку */
+  color: #fff; /* Цвет текста на кнопке */
+  font-size: 14px; /* Размер шрифта текста на кнопке */
 }
 
 /* Стили кнопки при наведении */
 .header-button:hover {
   background-color: #1976d2; /* Цвет кнопки при наведении */
-}
-
-/* Стили текста внутри кнопки */
-.button-text {
-  color: #fff; /* Цвет текста на кнопке */
 }

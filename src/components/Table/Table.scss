@@ -1,59 +1,89 @@
-// PagesModules.scss
-
 .table-container {
-  margin: 20px;
   display: flex;
-  flex-direction: column; /* Располагаем элементы по вертикали */
-  height: 94%; /* Высота контейнера на весь экран (или задайте другую высоту) */
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .table-search {
   display: flex;
-  margin-bottom: 20px; /* Добавляем отступ снизу для лучшего визуального разделения */
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-bottom: 20px; /* Отступ снизу для лучшего визуального отделения */
 }
 
 .table-search input {
-  width: 500px;
+  width: 530px;
   padding: 8px;
   font-size: 16px;
   border: 2px solid #5f5f5f;
   border-radius: 4px;
-  margin-left: 10px;
-  margin-right: auto; /* Автоматическое выравнивание по центру */
+  margin-left: 0;
+  margin-right: auto;
+  border-bottom: none; /* Убираем нижнюю границу */
 }
 
 .results-header {
-  font-family: Roboto;
+  font-family: Roboto, sans-serif; /* Запасной шрифт */
   font-size: 48px;
   font-weight: 500;
-  margin: 20px 0;
   text-align: center;
+  margin: 20px 0; /* Отступ сверху и снизу для заголовка */
 }
 
-.repository-table-container {
-  overflow-y: auto; /* Добавляем вертикальный скролл */
-  height: calc(
-    100% - 150px
-  ); /* Вычисляем высоту для таблицы, чтобы оставалось место для других элементов */
-}
-
+/* Настройка таблицы */
 .repository-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0; /* Убираем отступы, чтобы таблица занимала всю доступную ширину */
+  margin: 0 20px; /* Отступы по бокам */
+  overflow-y: auto; /* Прокрутка таблицы */
+  max-height: 400px; /* Максимальная высота таблицы */
 }
 
-th,
+/* Стили для ползунка */
+.repository-table::-webkit-scrollbar {
+  width: 12px;
+  height: 12px; /* Стилизация горизонтального скролла */
+}
+
+.repository-table::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.repository-table::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 3px solid #f1f1f1;
+}
+
+.repository-table::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Стили для заголовков таблицы */
+th {
+  font-size: 20px !important; /* Размер шрифта для заголовков */
+  padding: 8px; /* Уменьшение отступов для более компактного вида */
+  text-align: center !important; /* Выравнивание текста по центру */
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12); /* Более выраженная граница для заголовков */
+  cursor: pointer;
+}
+
 td {
-  padding: 16px;
-  text-align: center;
+  font-size: 17px !important; /* Размер шрифта для ячеек таблицы */
+  padding: 8px; /* Уменьшение отступов для более компактного вида */
+  text-align: center !important; /* Выравнивание текста по центру */
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-th {
-  cursor: pointer;
+/* Ширина ячеек и минимальная ширина */
+th,
+td {
+  min-width: 0px; /* Минимальная ширина ячеек, установите, если необходимо */
 }
 
 tr:hover {
   background: rgba(33, 150, 243, 0.04);
+  cursor: pointer;
 }

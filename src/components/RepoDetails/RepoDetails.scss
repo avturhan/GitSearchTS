@@ -3,11 +3,15 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 700px; /* Установите ширину панели по умолчанию */
-  min-width: 300px; /* Минимальная ширина панели */
-  max-width: 100%; /* Максимальная ширина панели */
-  max-height: 100%; /* Максимальная высота панели */
+  width: 100%; /* Ширина блока по умолчанию */
+  max-width: 900px; /* Максимальная ширина блока */
+  max-height: 100%; /* Максимальная высота блока */
   overflow-y: auto; /* Включение вертикальной прокрутки */
+  overflow-x: hidden; /* Отключение горизонтальной прокрутки */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Отступы между элементами внутри блока */
+  box-sizing: border-box; /* Учитывает padding и border в ширину и высоту */
 }
 
 .repo-details-placeholder {
@@ -16,22 +20,13 @@
   justify-content: center;
   height: 100%;
   text-align: center;
-  font-size: 18px;
   color: #888;
-}
-
-.repo-name {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.repo-info {
-  font-size: 16px;
-  margin-bottom: 8px;
+  font-size: 25px;
 }
 
 .repo-info strong {
   font-weight: bold;
+  font-size: 20px;
 }
 
 .repo-info a {
@@ -45,22 +40,34 @@
 
 .repo-tags {
   margin-top: 20px;
+  font-size: 20px;
 }
 
 .repo-tags strong {
   display: block;
   font-weight: bold;
   margin-bottom: 8px;
+  font-size: 20px;
 }
 
 .repo-tags ul {
   list-style-type: none;
   padding: 0;
+  margin: 0; /* Убираем отступы у ul */
 }
 
 .repo-tags li {
   background-color: #e8e8e8;
   border-radius: 4px;
   padding: 6px 12px;
-  margin: 4px 0;
+  margin: 4px 0; /* Отступы между элементами списка */
+}
+
+.ResizablePanel {
+  background: rgba(242, 242, 242, 1);
+  border-left: 1px solid #ccc;
+  overflow-y: auto;
+  height: 100vh; /* Высота панели должна быть такая же, как высота окна */
+  position: relative;
+  flex-shrink: 0; /* Не сжимается при изменении размера контейнера */
 }

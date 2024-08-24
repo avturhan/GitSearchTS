@@ -1,4 +1,4 @@
-import { Repo } from "../Types"; // Проверьте правильность пути
+import { Repo } from "./Types"; // Проверьте правильность пути
 
 // Функция для получения количества коммитов в репозитории
 const getCommitsCount = async (repoFullName: string): Promise<number> => {

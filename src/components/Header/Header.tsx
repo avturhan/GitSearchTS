@@ -1,47 +1,79 @@
-import React, { useState, ChangeEvent, KeyboardEvent } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchQuery } from "../../slices/searchParamsSlice";
+import { TextField, Button } from "@mui/material";
 import "./Header.scss";
 
-// Типы пропсов для компонента Header
+/**
+ * Свойства компонента Header.
+ */
 interface HeaderProps {
+  /**
+   * Функция для обработки изменения поискового запроса.
+   * @param query - Поисковый запрос
+   */
   onSearchChange: (query: string) => void;
 }
 
-// Компонент Header
+/**
+ * Компонент Header для ввода и отправки поискового запроса.
+ * @param props - Свойства компонента
+ * @returns JSX элемент
+ */
 const Header: React.FC<HeaderProps> = ({ onSearchChange }) => {
-  const [query, setQuery] = useState<string>("");
+  // Локальное состояние для хранения значения инпута
+  const [inputValue, setInputValue] = useState<string>("");
+  const dispatch = useDispatch();
 
-  // Обработчик изменения ввода
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
+  /**
+   * Обработчик изменения инпута.
+   * @param event - Событие изменения инпута
+   */
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
   };
 
-  // Обработчик кнопки поиска
-  const handleSearch = () => {
-    onSearchChange(query);
+  /**
+   * Обработчик нажатия на кнопку поиска.
+   */
+  const handleSearchClick = () => {
+    dispatch(setSearchQuery(inputValue)); // Обновляем поисковый запрос в глобальном хранилище
+    onSearchChange(inputValue); // Вызываем родительский обработчик с текущим запросом
   };
 
-  // Обработчик нажатия клавиши Enter
-  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+  /**
+   * Обработчик нажатия клавиш.
+   * @param event - Событие нажатия клавиш
+   */
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      event.preventDefault();
-      handleSearch();
+      handleSearchClick();
     }
   };
 
   return (
     <header className="header">
       <div className="header-content">
-        <input
-          className="header-input"
-          type="text"
-          placeholder="Введите поисковый запрос"
-          value={query}
+        <TextField
+          variant="outlined"
+          placeholder="Введите поисковый запрос..."
+          value={inputValue}
           onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
+          onKeyPress={handleKeyPress}
+          fullWidth
+          InputProps={{
+            className: "header-input",
+          }}
         />
-        <button className="header-button" onClick={handleSearch}>
-          <span className="button-text">ИСКАТЬ</span>
-        </button>
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSearchClick}
+          className="header-button"
+        >
+          ИСКАТЬ
+        </Button>
       </div>
     </header>
   );
